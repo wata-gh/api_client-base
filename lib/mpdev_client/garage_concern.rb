@@ -1,6 +1,6 @@
 module MpdevClient
   module GarageConcern
-    class NotFoundError < StandardError; end
+    class NotFoundError < MpdevClient::Error; end
 
     module ClassMethods
       def find_by!(*args)
