@@ -50,6 +50,21 @@ module MpdevClient
         scope :per_page, -> (per_page) {
           per_page ? where(per_page: per_page) : all
         }
+
+        scope :order, -> (*orders) {
+          orders_cond = []
+          orders.each do |order|
+            case order
+            when Hash
+              orders_cond << order.map {|k, v| "#{k} #{v}"}.join(',')
+            when Array
+              orders_cond << order.join(', ')
+            else
+              orders_cond << order
+            end
+          end
+          where(order: orders_cond.join(', '))
+        }
       }
     end
   end
