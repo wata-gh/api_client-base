@@ -1,4 +1,5 @@
 require 'logger'
+require 'her'
 require 'mpdev_client/base/version'
 require 'mpdev_client/error'
 require 'mpdev_client/garage_concern'
