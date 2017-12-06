@@ -9,9 +9,6 @@ module MpdevClient
   class GarageParser < Her::Middleware::FirstLevelParseJSON
     def on_complete(env)
       case env[:status]
-      when 400
-        Base.logger.error(env)
-        raise BadRequestError
       when 401
         Base.logger.error(env)
         raise UnauthorizedError
