@@ -5,6 +5,7 @@ module MpdevClient
   class MethodNotAllowedError < Error; end
   class InternalServerError < Error; end
   class ServiceUnavailableError < Error; end
+  class GatewayTimeoutError < Error; end
 
   class GarageParser < Her::Middleware::FirstLevelParseJSON
     def parse(body)
@@ -33,6 +34,9 @@ module MpdevClient
       when 503
         Base.logger.error(env)
         raise ServiceUnavailableError
+      when 504
+        Base.logger.error(env)
+        raise GatewayTimeoutError
       else
         Base.logger.debug("[request ] #{env[:method].to_s.upcase} #{env[:url]} #{env[:request_headers]}")
         Base.logger.debug("[response] #{env[:status]} #{env[:reason_phrase]} #{env[:response_headers]}")
