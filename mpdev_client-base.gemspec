@@ -15,7 +15,7 @@ Gem::Specification.new do |spec|
   spec.license       = "MIT"
 
   if spec.respond_to?(:metadata)
-    spec.metadata['allowed_push_host'] = 'https://gems.ckpd.co'
+    spec.metadata['allowed_push_host'] = 'https://gemstash.ckpd.co'
   else
     raise "RubyGems 2.0 or newer is required to protect against " \
       "public gem pushes."
