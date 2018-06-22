@@ -1,11 +1,51 @@
 module MpdevClient
-  class BadRequestError < Error; end
-  class UnauthorizedError < Error; end
-  class ForbiddenError < Error; end
-  class MethodNotAllowedError < Error; end
-  class InternalServerError < Error; end
-  class ServiceUnavailableError < Error; end
-  class GatewayTimeoutError < Error; end
+  class HttpError < Error
+    def initialize(env)
+      @env = env
+    end
+
+    def method
+      @env[:method].to_s.upcase
+    end
+
+    def url
+      @env[:url]
+    end
+
+    def status
+      @env[:status]
+    end
+
+    def reason_phrase
+      @env[:reason_phrase]
+    end
+
+    def request_headers
+      @env[:request_headers]
+    end
+
+    def response_headers
+      @env[:response_headers]
+    end
+
+    def body
+      @env[:body]
+    end
+
+    def json_body
+      JSON.parse(body)
+    end
+  end
+
+  class BadRequestError < HttpError; end
+  class UnauthorizedError < HttpError; end
+  class ForbiddenError < HttpError; end
+  class MethodNotAllowedError < HttpError; end
+  class NotAcceptable < HttpError; end
+  class Conflict < HttpError; end
+  class InternalServerError < HttpError; end
+  class ServiceUnavailableError < HttpError; end
+  class GatewayTimeoutError < HttpError; end
 
   class GarageParser < Her::Middleware::FirstLevelParseJSON
     def parse(body)
@@ -21,22 +61,28 @@ module MpdevClient
       case env[:status]
       when 401
         Base.logger.error(env)
-        raise UnauthorizedError
+        raise UnauthorizedError.new(env)
       when 403
         Base.logger.error(env)
-        raise ForbiddenError
+        raise ForbiddenError.new(env)
       when 405
         Base.logger.error(env)
-        raise MethodNotAllowedError
+        raise MethodNotAllowedError.new(env)
+      when 406
+        Base.logger.error(env)
+        raise NotAcceptable.new(env)
+      when 409
+        Base.logger.error(env)
+        raise Conflict.new(env)
       when 500
         Base.logger.error(env)
-        raise InternalServerError
+        raise InternalServerError.new(env)
       when 503
         Base.logger.error(env)
-        raise ServiceUnavailableError
+        raise ServiceUnavailableError.new(env)
       when 504
         Base.logger.error(env)
-        raise GatewayTimeoutError
+        raise GatewayTimeoutError.new(env)
       else
         Base.logger.debug("[request ] #{env[:method].to_s.upcase} #{env[:url]} #{env[:request_headers]}")
         Base.logger.debug("[response] #{env[:status]} #{env[:reason_phrase]} #{env[:response_headers]}")
