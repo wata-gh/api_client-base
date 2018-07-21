@@ -44,6 +44,7 @@ module MpdevClient
   class NotAcceptable < HttpError; end
   class Conflict < HttpError; end
   class InternalServerError < HttpError; end
+  class BadGateway < HttpError; end
   class ServiceUnavailableError < HttpError; end
   class GatewayTimeoutError < HttpError; end
 
@@ -77,6 +78,9 @@ module MpdevClient
       when 500
         Base.logger.error(env)
         raise InternalServerError.new(env)
+      when 502
+        Base.logger.error(env)
+        raise BadGateway.new(env)
       when 503
         Base.logger.error(env)
         raise ServiceUnavailableError.new(env)
