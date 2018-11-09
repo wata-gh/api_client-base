@@ -27,6 +27,14 @@ module MpdevClient
     def self.included(base)
       base.extend ClassMethods
       base.class_eval {
+        scope :q, -> (condition) {
+          cond = {}
+          condition.each do |k, v|
+            cond["q[#{k}]"] = v
+          end
+          where(cond)
+        }
+
         scope :geometory, -> (image, options) {
           params = {}
           options.keys.each do |key|
