@@ -53,6 +53,19 @@ module MpdevClient
       res = super(body)
       if current_response_headers['x-list-totalcount']
         res[:metadata][:list_totalcount] = current_response_headers['x-list-totalcount'].to_i
+        link = current_response_headers['link']
+        if link
+          res[:metadata][:link] = link
+          link.split(',').each do |l|
+            m = l.match(/<(.*)>.*rel=\"(.+?)\".*page=\"([0-9]+?)\"/)
+            if m
+              rel = m[2]
+              res[:metadata]["#{rel}_path".to_sym] = m[1]
+              res[:metadata]["#{rel}_page".to_sym] = m[3].to_i
+              res[:metadata][:per_page] ||= m[1][/per_page=([0-9]+)/, 1]&.to_i
+            end
+          end
+        end
       end
       res
     end
