@@ -27,6 +27,18 @@ module MpdevClient
     def self.included(base)
       base.extend ClassMethods
       base.class_eval {
+        scope :paginate_all, -> {
+          page = 1
+          result = []
+          loop do
+            res = page(page).all
+            result += res
+            page = res.metadata[:next_page]
+            break unless page
+          end
+          result
+        }
+
         scope :q, -> (condition) {
           cond = {}
           condition.each do |k, v|
