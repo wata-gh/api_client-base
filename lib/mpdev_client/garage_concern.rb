@@ -16,8 +16,9 @@ module MpdevClient
           when Symbol, String
             keys << option
           when Hash then
-            hash_key = option.keys.first
-            keys << "#{hash_key}[#{fields_str(option[hash_key])}]"
+            option.keys.each do |hash_key|
+              keys << "#{hash_key}[#{fields_str(option[hash_key])}]"
+            end
           end
         end
         keys.join(',')
