@@ -30,11 +30,14 @@ module MpdevClient
       base.class_eval {
         scope :paginate_all, -> {
           page = 1
+          res_per_page = nil
           result = []
           loop do
-            res = page(page).all
+            res = per_page(res_per_page).page(page).all
+
             result += res
             page = res.metadata[:next_page]
+            res_per_page = res.metadata[:per_page]
             break unless page
           end
           result
