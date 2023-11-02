@@ -1,25 +1,18 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'mpdev_client/base/version'
+require 'api_client/base/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "mpdev_client-base"
-  spec.version       = MpdevClient::Base::VERSION
+  spec.name          = "api_client-base"
+  spec.version       = ApiClient::Base::VERSION
   spec.authors       = ["shinya-watanabe"]
   spec.email         = ["shinya-watanabe@cookpad.com"]
 
   spec.summary       = %q{MPDev client base.}
   spec.description   = %q{Office Ruby gem for MPDev client base.}
-  spec.homepage      = "https://ghe.ckpd.co/adtech/mpdev_client-base"
+  spec.homepage      = "https://github.com/wata-gh/api_client-base"
   spec.license       = "MIT"
-
-  if spec.respond_to?(:metadata)
-    spec.metadata['allowed_push_host'] = 'https://gemstash.ckpd.co'
-  else
-    raise "RubyGems 2.0 or newer is required to protect against " \
-      "public gem pushes."
-  end
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})

@@ -1,4 +1,4 @@
-module MpdevClient
+module ApiClient
   class HttpError < Error
     def initialize(env)
       @env = env
@@ -112,11 +112,11 @@ module MpdevClient
     private
 
     def clear_thread_local
-      Thread.current[:mpdev_client_garage_parser] = {}
+      Thread.current[:api_client_garage_parser] = {}
     end
 
     def thread_local
-      Thread.current[:mpdev_client_garage_parser]
+      Thread.current[:api_client_garage_parser]
     end
 
     def set_current_env(env)

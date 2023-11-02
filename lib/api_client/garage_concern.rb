@@ -1,6 +1,6 @@
-module MpdevClient
+module ApiClient
   module GarageConcern
-    class NotFoundError < MpdevClient::Error; end
+    class NotFoundError < ApiClient::Error; end
 
     module ClassMethods
       def find_by!(*args)

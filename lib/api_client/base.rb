@@ -1,11 +1,11 @@
 require 'logger'
 require 'her'
-require 'mpdev_client/base/version'
-require 'mpdev_client/error'
-require 'mpdev_client/garage_concern'
-require 'mpdev_client/garage_parser'
+require 'api_client/base/version'
+require 'api_client/error'
+require 'api_client/garage_concern'
+require 'api_client/garage_parser'
 
-module MpdevClient
+module ApiClient
   module Base
     def self.logger
       @logger ||= if defined?(Rails)

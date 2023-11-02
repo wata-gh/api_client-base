@@ -1,13 +1,13 @@
-# MpdevClient::Base
+# ApiClient::Base
 
-MPDev service client base.
+API service client base.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'mpdev_client-base'
+gem 'api_client-base'
 ```
 
 And then execute:
@@ -16,7 +16,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install mpdev_client-base
+    $ gem install api_client-base
 
 ## Usage
 
@@ -30,7 +30,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://ghe.ckpd.co/adtech/mpdev_client-base.
+Bug reports and pull requests are welcome on GitHub at https://ghe.ckpd.co/adtech/api_client-base.
 
 
 ## License

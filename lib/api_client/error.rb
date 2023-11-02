@@ -1,4 +1,4 @@
-module MpdevClient
+module ApiClient
   class Error < StandardError
   end
 end
